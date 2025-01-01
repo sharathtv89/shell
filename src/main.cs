@@ -9,8 +9,7 @@ while(true)
     Console.Write("$ ");
     inputCommand = Console.ReadLine();
 
-    if(inputCommand == "exit 0"){
-        Console.WriteLine("status 0");
+    if(inputCommand == "exit 0"){        
         return;
     }
 
