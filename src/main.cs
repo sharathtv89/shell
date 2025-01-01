@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 List<string> validCommands = new List<string>();
 var inputCommand = string.Empty;
-do
+while(true)
 {
     Console.Write("$ ");
     inputCommand = Console.ReadLine();
 
-    if(inputCommand == "exit"){
+    if(inputCommand == "exit 0"){
+        Console.WriteLine("status 0");
         return;
     }
 
@@ -17,5 +18,4 @@ do
         Console.WriteLine($"{inputCommand}: command not found");
     }
     
-} while (inputCommand != "exit");
-
+}
