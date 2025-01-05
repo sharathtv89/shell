@@ -10,9 +10,10 @@ class Program
 {
     const string EXIT = "exit";
     const string ECHO = "echo";
-    const string TYPE = "type"; 
+    const string TYPE = "type";
+    const string PWD = "pwd"; 
 
-    static readonly List<string> shellBuiltinCommands = [EXIT, ECHO, TYPE];
+    static readonly List<string> shellBuiltinCommands = [EXIT, ECHO, TYPE, PWD];
 
     static void Main(string[] args)
     {
@@ -44,10 +45,18 @@ class Program
             case EXIT:
                 HandleExitCommand(commandParams);
                 break;
+            case PWD:
+                HandlePWDCommand(commandParams);
+                break;    
             default: 
                 RunProgram(command, commandParams);
                 break;
         }
+    }
+
+    private static void HandlePWDCommand(string commandParams)
+    {
+        Console.WriteLine(Directory.GetCurrentDirectory());
     }
 
     private static void RunProgram(string command, string commandParams)
