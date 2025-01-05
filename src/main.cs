@@ -63,7 +63,7 @@ class Program
     {        
         try
         {
-            if(commandParams == "~"){
+            if(commandParams == "~") {
                 var homePath = Environment.GetEnvironmentVariable("HOME");
                 Directory.SetCurrentDirectory(homePath);
             }
