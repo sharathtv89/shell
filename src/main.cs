@@ -60,12 +60,10 @@ class Program
     }
 
     private static void HandleCDCommand(string commandParams)
-    {
-        var isAbsoluteDir = Directory.Exists(commandParams);
-
+    {        
         try
         {
-            if(isAbsoluteDir) {
+            if(Directory.Exists(commandParams)) {
                 Directory.SetCurrentDirectory(commandParams);
             }
             else {                
