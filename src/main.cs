@@ -69,8 +69,8 @@ class Program
 
     static void HandleTypeCommand(string commandParams)
     {
-        if (validCommands.Exists(command => command == commandParams))
-        {
+        // if (validCommands.Exists(command => command == commandParams))
+        // {
             var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
             
             if(pathENVVaribale != null) {
@@ -84,10 +84,10 @@ class Program
                 
                 Console.WriteLine($"invalid_command: not found");
             }
-        }
-        else
-        {
-            Console.WriteLine($"{commandParams}: not found");
-        }
+        // }
+        // else
+        // {
+        //     Console.WriteLine($"{commandParams}: not found");
+        // }
     }
 }
