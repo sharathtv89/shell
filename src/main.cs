@@ -5,15 +5,17 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Security.Principal;
 
 class Program
 {
     const string EXIT = "exit";
     const string ECHO = "echo";
     const string TYPE = "type";
-    const string PWD = "pwd"; 
+    const string PRINTWORKINGDIRECTORY = "pwd";
+    const string CHANGEDIRECTORY = "cd"; 
 
-    static readonly List<string> shellBuiltinCommands = [EXIT, ECHO, TYPE, PWD];
+    static readonly List<string> shellBuiltinCommands = [EXIT, ECHO, TYPE, PRINTWORKINGDIRECTORY, CHANGEDIRECTORY];
 
     static void Main(string[] args)
     {
@@ -45,12 +47,27 @@ class Program
             case EXIT:
                 HandleExitCommand(commandParams);
                 break;
-            case PWD:
+            case PRINTWORKINGDIRECTORY:
                 HandlePWDCommand(commandParams);
-                break;    
+                break;
+            case CHANGEDIRECTORY:
+                HandleCDCommand(commandParams);
+                break;     
             default: 
                 RunProgram(command, commandParams);
                 break;
+        }
+    }
+
+    private static void HandleCDCommand(string commandParams)
+    {
+        try
+        {
+            Directory.SetCurrentDirectory(commandParams);
+        }
+        catch(DirectoryNotFoundException)
+        {
+            Console.WriteLine($"cd: {commandParams}: No such file or directory");
         }
     }
 
