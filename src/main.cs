@@ -89,7 +89,7 @@ class Program
                 }
             }
 
-            Console.WriteLine($"{command}: not found");
+            Console.WriteLine($"{command}: command not found");
         }
     }   
 
