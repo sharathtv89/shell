@@ -12,7 +12,7 @@ class Program
     const string ECHO = "echo";
     const string TYPE = "type"; 
 
-    static readonly List<string> validCommands = [EXIT, ECHO, TYPE];
+    static readonly List<string> builtinCommands = [EXIT, ECHO, TYPE];
 
     static void Main(string[] args)
     {
@@ -69,24 +69,24 @@ class Program
 
     static void HandleTypeCommand(string commandParams)
     {
-        // if (validCommands.Exists(command => command == commandParams))
-        // {
-            var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
-            
-            if(pathENVVaribale != null) {                
-                foreach(var path in pathENVVaribale.Split(':')){
-                    if(File.Exists($"{path}/{commandParams}")) {
-                        Console.WriteLine($"{commandParams} is {path}/{commandParams}");
-                        return;
-                    }
+        if(builtinCommands.Exists(command => command == commandParams))
+        {
+            Console.WriteLine($"{commandParams} is a shell builtin");
+            return;
+        }
+
+        var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
+        
+        if(pathENVVaribale != null) {                
+            foreach(var path in pathENVVaribale.Split(':'))
+            {
+                if(File.Exists($"{path}/{commandParams}")) {
+                    Console.WriteLine($"{commandParams} is {path}/{commandParams}");
+                    return;
                 }
-                
-                Console.WriteLine($"{commandParams}: not found");
             }
-        // }
-        // else
-        // {
-        //     Console.WriteLine($"{commandParams}: not found");
-        // }
+            
+        Console.WriteLine($"{commandParams}: not found");
+        }
     }
 }
