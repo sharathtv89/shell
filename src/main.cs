@@ -59,13 +59,11 @@ class Program
             {
                 if(File.Exists($"{path}/{command}")) {
                     Process.Start(new ProcessStartInfo($"{path}/{command}", commandParams));
-
-                    // RunProcessWithParameters($"{path}/{command}", commandParams);
                     return;
                 }
             }
 
-            Console.WriteLine($"{commandParams}: not found");
+            Console.WriteLine($"{command}: not found");
         }
     }   
 
@@ -109,26 +107,4 @@ class Program
         }
     }
 
-    static void RunProcessWithParameters(string filePath, string commandParams)
-    {
-        ProcessStartInfo processStartInfo = new ProcessStartInfo
-        {
-            FileName = filePath,
-            Arguments = commandParams,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        using (Process process = Process.Start(processStartInfo))
-        {
-            process.WaitForExit();
-
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            Console.WriteLine(output);
-        }
-    }
 }
