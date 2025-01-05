@@ -121,12 +121,7 @@ class Program
 
         using (Process process = Process.Start(processStartInfo))
         {
-            process.WaitForExit();
-
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            Console.WriteLine(output);
+            process.WaitForExit();            
         }
     }
 }
