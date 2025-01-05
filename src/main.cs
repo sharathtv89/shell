@@ -93,7 +93,8 @@ class Program
             foreach(var path in pathENVVaribale.Split(':'))
             {
                 if(File.Exists($"{path}/{command}")) {
-                    Process.Start(new ProcessStartInfo($"{path}/{command}", commandParams));
+                    var process = Process.Start(new ProcessStartInfo($"{path}/{command}", commandParams));
+                    process.WaitForExit();
                     isValidCommand = true;
                     break;
                 }
