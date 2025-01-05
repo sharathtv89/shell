@@ -12,7 +12,7 @@ class Program
     const string ECHO = "echo";
     const string TYPE = "type"; 
 
-    static readonly List<string> builtinCommands = [EXIT, ECHO, TYPE];
+    static readonly List<string> shellBuiltinCommands = [EXIT, ECHO, TYPE];
 
     static void Main(string[] args)
     {
@@ -45,10 +45,27 @@ class Program
                 HandleExitCommand(commandParams);
                 break;
             default: 
-                Console.WriteLine($"{command}: command not found");
+                RunProgram(command, commandParams);
                 break;
         }
     }
+
+    private static void RunProgram(string command, string commandParams)
+    {
+        var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
+
+        if(pathENVVaribale != null) {                
+            foreach(var path in pathENVVaribale.Split(':'))
+            {
+                if(File.Exists($"{path}/{commandParams}")) {
+                    RunProcessWithParameters($"{path}/{commandParams}", commandParams);
+                    return;
+                }
+            }
+        }
+            
+        Console.WriteLine($"{commandParams}: not found");
+    }   
 
     static void HandleExitCommand(string commandParams)
     {
@@ -69,7 +86,7 @@ class Program
 
     static void HandleTypeCommand(string commandParams)
     {
-        if(builtinCommands.Exists(command => command == commandParams))
+        if(shellBuiltinCommands.Exists(command => command == commandParams))
         {
             Console.WriteLine($"{commandParams} is a shell builtin");
             return;
@@ -87,6 +104,29 @@ class Program
             }
             
         Console.WriteLine($"{commandParams}: not found");
+        }
+    }
+
+    static void RunProcessWithParameters(string filePath, string commandParams)
+    {
+        ProcessStartInfo processStartInfo = new ProcessStartInfo
+        {
+            FileName = filePath,
+            Arguments = commandParams,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using (Process process = Process.Start(processStartInfo))
+        {
+            process.WaitForExit();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            Console.WriteLine(output);
         }
     }
 }
