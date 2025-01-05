@@ -58,7 +58,9 @@ class Program
             foreach(var path in pathENVVaribale.Split(':'))
             {
                 if(File.Exists($"{path}/{command}")) {
-                    RunProcessWithParameters($"{path}/{command}", commandParams);
+                    Process.Start(new ProcessStartInfo($"{path}/{command}", commandParams));
+
+                    // RunProcessWithParameters($"{path}/{command}", commandParams);
                     return;
                 }
             }
@@ -127,7 +129,6 @@ class Program
             string error = process.StandardError.ReadToEnd();
 
             Console.WriteLine(output);
-            Console.Write("$ ");
         }
     }
 }
