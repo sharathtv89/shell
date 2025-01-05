@@ -67,7 +67,7 @@ class Program
                 var homePath = Environment.GetEnvironmentVariable("HOME");
                 Directory.SetCurrentDirectory(homePath);
             }
-            else if(Directory.Exists(commandParams)) {
+            else if (Directory.Exists(commandParams)) {
                 Directory.SetCurrentDirectory(commandParams);
             }
             else {                
