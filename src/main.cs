@@ -57,14 +57,14 @@ class Program
         if(pathENVVaribale != null) {                
             foreach(var path in pathENVVaribale.Split(':'))
             {
-                if(File.Exists($"{path}/{commandParams}")) {
-                    RunProcessWithParameters($"{path}/{commandParams}", commandParams);
+                if(File.Exists($"{path}/{command}")) {
+                    RunProcessWithParameters($"{path}/{command}", commandParams);
                     return;
                 }
             }
+
+            Console.WriteLine($"{commandParams}: not found");
         }
-            
-        Console.WriteLine($"{commandParams}: not found");
     }   
 
     static void HandleExitCommand(string commandParams)
@@ -103,7 +103,7 @@ class Program
                 }
             }
             
-        Console.WriteLine($"{commandParams}: not found");
+            Console.WriteLine($"{commandParams}: not found");
         }
     }
 
