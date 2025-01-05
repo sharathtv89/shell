@@ -87,17 +87,19 @@ class Program
     private static void RunProgram(string command, string commandParams)
     {
         var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
+        var isValidCommand = false;
 
         if(pathENVVaribale != null) {                
             foreach(var path in pathENVVaribale.Split(':'))
             {
                 if(File.Exists($"{path}/{command}")) {
                     Process.Start(new ProcessStartInfo($"{path}/{command}", commandParams));
-                    return;
+                    isValidCommand = true;
+                    break;
                 }
             }
-
-            Console.WriteLine($"{command}: command not found");
+            if(!isValidCommand)
+                Console.WriteLine($"{command}: command not found");
         }
     }   
 
