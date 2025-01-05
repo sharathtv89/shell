@@ -81,7 +81,7 @@ class Program
                     }
                 }
                 
-                Console.WriteLine($"invalid_command: not found");
+                Console.WriteLine($"{commandParams}: not found");
             }
         // }
         // else
