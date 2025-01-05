@@ -73,11 +73,10 @@ class Program
         // {
             var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
             
-            if(pathENVVaribale != null) {
-                Console.WriteLine(pathENVVaribale);
+            if(pathENVVaribale != null) {                
                 foreach(var path in pathENVVaribale.Split(':')){
-                    if(path.Contains(commandParams)) {
-                        Console.WriteLine($"{commandParams} is {path}");
+                    if(File.Exists($"{path}/{commandParams}")) {
+                        Console.WriteLine($"{commandParams} is {path}/{commandParams}");
                         return;
                     }
                 }
