@@ -109,19 +109,24 @@ class Program
 
     static void RunProcessWithParameters(string filePath, string commandParams)
     {
-        ProcessStartInfo processStartInfo = new ProcessStartInfo
-        {
-            FileName = filePath,
-            Arguments = commandParams,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
+        // ProcessStartInfo processStartInfo = new ProcessStartInfo
+        // {
+        //     FileName = filePath,
+        //     Arguments = commandParams,
+        //     RedirectStandardOutput = true,
+        //     RedirectStandardError = true,
+        //     UseShellExecute = false,
+        //     CreateNoWindow = true
+        // };
 
-        using (Process process = Process.Start(processStartInfo))
-        {
-            process.WaitForExit();            
-        }
+        // using (Process process = Process.Start(processStartInfo))
+        // {
+        //     process.WaitForExit();            
+        // }
+
+        using var process = new Process();
+        process.StartInfo.FileName = filePath;
+        process.StartInfo.Arguments = commandParams;
+        process.Start();        
     }
 }
