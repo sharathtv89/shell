@@ -67,11 +67,11 @@ class Program
         {
             if(isAbsoluteDir){
                 Directory.SetCurrentDirectory(commandParams);
-                return;
             }
-
-            var relativePath = Path.GetFullPath(commandParams, Directory.GetCurrentDirectory());
-            Directory.SetCurrentDirectory(commandParams);                       
+            else {                
+                var relativePath = Path.GetFullPath(commandParams, Directory.GetCurrentDirectory());
+                Directory.SetCurrentDirectory(commandParams);                       
+            }
         }
         catch(DirectoryNotFoundException)
         {
