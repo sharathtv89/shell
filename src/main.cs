@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 class Program
 {
@@ -73,6 +74,7 @@ class Program
             var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
             
             if(pathENVVaribale != null) {
+                Debug.WriteLine(pathENVVaribale);
                 foreach(var path in pathENVVaribale.Split(':')){
                     if(path.Contains(commandParams)) {
                         Console.WriteLine($"{commandParams} is {path}");
