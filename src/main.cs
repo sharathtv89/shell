@@ -65,7 +65,7 @@ class Program
 
         try
         {
-            if(isAbsoluteDir){
+            if(isAbsoluteDir) {
                 Directory.SetCurrentDirectory(commandParams);
             }
             else {                
