@@ -61,9 +61,17 @@ class Program
 
     private static void HandleCDCommand(string commandParams)
     {
+        var isAbsoluteDir = Directory.Exists(commandParams);
+
         try
         {
-            Directory.SetCurrentDirectory(commandParams);
+            if(isAbsoluteDir){
+                Directory.SetCurrentDirectory(commandParams);
+                return;
+            }
+
+            var relativePath = Path.GetFullPath(commandParams, Directory.GetCurrentDirectory());
+            Directory.SetCurrentDirectory(commandParams);                       
         }
         catch(DirectoryNotFoundException)
         {
