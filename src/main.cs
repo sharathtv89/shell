@@ -74,11 +74,11 @@ class Program
             var pathENVVaribale = Environment.GetEnvironmentVariable("PATH");
             
             if(pathENVVaribale != null) {
-                Debug.WriteLine(pathENVVaribale);
+                Console.WriteLine(pathENVVaribale);
                 foreach(var path in pathENVVaribale.Split(':')){
                     if(path.Contains(commandParams)) {
                         Console.WriteLine($"{commandParams} is {path}");
-                        break;
+                        return;
                     }
                 }
                 
