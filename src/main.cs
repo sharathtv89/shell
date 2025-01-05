@@ -4,34 +4,67 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-List<string> validCommands = ["echo"];
+const string EXIT = "exit";
+const string ECHO = "echo";
+const string TYPE = "type"; 
+
+List<string> validCommands = [EXIT, ECHO, TYPE];
+
 while(true)
 {
     Console.Write("$ ");
     var inputText = Console.ReadLine();
-
-    if(inputText == "exit 0"){        
-        return;
-    }
+    if(string.IsNullOrEmpty(inputText) || string.IsNullOrWhiteSpace(inputText))
+        continue;
 
     var inputSlice = inputText?.Split(" ", 2);
     var command = inputSlice?.Length > 0 ? inputSlice?[0] : " ";
     var commandParams = inputSlice?.Length == 2 ? inputSlice?[1] : " ";  
 
-    if(!validCommands.Contains(command)){
-        Console.WriteLine($"{command}: command not found");     
-    }
-    else {
-        ProcessCommand(command, commandParams);    
-    }    
+    ProcessCommand(command, commandParams);       
 }
 
 void ProcessCommand(string command, string commandParams)
 {
     switch(command){
-        case "echo" :
+        case ECHO :
             Console.WriteLine(commandParams);
         break;
-        default : break;
+        case TYPE :
+            HandleTypeCommand(commandParams);
+        break;
+        case EXIT :
+            HandleExitCommand(commandParams);
+        break;
+        default : 
+            Console.WriteLine($"{command}: command not found");
+        break;
+    }
+}
+
+void HandleExitCommand(string commandParams)
+{
+    if(commandParams == "0"){
+        Environment.Exit(0);
+    }
+    else
+    {
+        HandleInavlidCommandParams();
+    }
+}
+
+void HandleInavlidCommandParams()
+{
+    Console.WriteLine("Command parameter is not correct");
+}
+
+void HandleTypeCommand(string commandParams)
+{
+    if(validCommands.Exists(command => command == commandParams))
+    {
+        Console.WriteLine($"{commandParams} is a shell builtin");
+    }
+    else {
+        Console.WriteLine($"{commandParams}: not found");
     }
 }
